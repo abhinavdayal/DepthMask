@@ -61,6 +61,9 @@ Tried same network as above with double the number of channels in each layer, bu
 ## Using MSELOSS with mean and not sum
 This gave a lot better results after 35 epochs of training, beyond whch it did not show promise to train further as shown below. At this point I want to try some more loss functions before trying to modify our network (encoder decoder architectures, Resnet type variants etc.) and/or the way we create the imges (e.g. thresholding, quantization, etc.)
 
+* [LINK to ipynb](https://github.com/abhinavdayal/DepthMask/blob/master/S15Assignment_attempt1.ipynb)
+* [LINK to network code](https://raw.githubusercontent.com/abhinavdayal/EVA4_LIBRARY/master/EVA4/eva4models/s15net.py)
+
 ![DNN1](MSE_trainloss.png)
 
 ![DNN1](MSE_testloss.png)
