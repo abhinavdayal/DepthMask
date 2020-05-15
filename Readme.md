@@ -17,6 +17,38 @@ The above process took good 10-12 hours to learn, debug and get it right. For ex
 
 ![DNN1](DNN1.png)
 
+### INPUTS
+
+![DNN1](DNN2_input.png)
+
+![DNN1](DNN2_minput.png)
+
+![DNN1](DNN2_dinput.png)
+
+### Outcomes
+
+#### TRaining Loss
+![DNN1](DNN1_trainloss.png)
+
+##### Test Loss
+![DNN1](DNN1_testloss.png)
+
+We found that the network had too much **checker board** issue and was not training that well so we updated it as below.
+
 ### Updated Network
 
 ![DNN2](DNN2.png)
+
+### Outcomes
+
+#### TRaining Loss
+![DNN1](DNN2_trainloss.png)
+
+#### Test Loss
+![DNN1](DNN2_testloss.png)
+
+#### Results 
+
+![DNN1](DNN2_m30.png)
+
+![DNN1](DNN2_d30.png)
