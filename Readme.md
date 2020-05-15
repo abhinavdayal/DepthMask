@@ -58,5 +58,17 @@ I found that the network had too much **checker board** issue and was not traini
 ### Doubling the Features?
 Tried same network as above with double the number of channels in each layer, but the outcome was not even close. My guess is that increasing the channels confused the system as the data being passed is lowres. You need more input data to work with more channels. It is just like in a Logistic Regression, adding more features is not always helpful.
 
+## Using MSELOSS with mean and not sum
+This gave a lot better results after 35 epochs of training, beyond whch it did not show promise to train further as shown below. At this point I want to try some more loss functions before trying to modify our network (encoder decoder architectures, Resnet type variants etc.) and/or the way we create the imges (e.g. thresholding, quantization, etc.)
+
+![DNN1](MSE_trainloss.png)
+
+![DNN1](MSE_testoss.png)
+
+![DNN1](MSE_mask.png)
+
+![DNN1](MSE_depth.png)
+
+
 ## Next Iteration - Deeper Network - No Atrous - Use Depthwise Separation
 
