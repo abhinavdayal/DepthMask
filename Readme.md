@@ -63,7 +63,7 @@ This gave a lot better results after 35 epochs of training, beyond whch it did n
 
 ![DNN1](MSE_trainloss.png)
 
-![DNN1](MSE_testoss.png)
+![DNN1](MSE_testloss.png)
 
 ![DNN1](MSE_mask.png)
 
