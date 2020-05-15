@@ -13,7 +13,9 @@ The above process took good 10-12 hours to learn, debug and get it right. For ex
 
 **GOAL**: Intent was to keep the network really small and see what is working and what is not. At the same time challenge was to get enough receptive field and keep the output having same dimension as the input.
 
-**NETWORK**: Started with following network
+**NETWORK**: Started with following network. It has around **230K parameters**. We trained on **32K images** and tested on **8K images** per epoch with a **batch size of 256**. It took around **3 minutes per epoch**. We used **L1 Loss with reduction of "sum"** instead of mean to avoid a division. **Learning rate was 0.0002** which I found with a simple LR finder over 3 epochs. 
+
+The loss came down from 300K to 230K and there were no signs of overfitting. Test loss was similar to train loss.
 
 ![DNN1](DNN1.png)
 
@@ -33,7 +35,7 @@ The above process took good 10-12 hours to learn, debug and get it right. For ex
 ##### Test Loss
 ![DNN1](DNN1_testloss.png)
 
-We found that the network had too much **checker board** issue and was not training that well so we updated it as below.
+I found that the network had too much **checker board** issue and was not training that well so I updated it as below. I reduced amount of dilation in atrous convolutions and replaced transposed conv with pixel shuffle. The resulting netowrk improved further. Traned for 20 epochs with LR of 0.0002 and another 10 epochs with LR of 0.00002. Results can be seen below. The loss did not decrease beyond 125K though.
 
 ### Updated Network
 
