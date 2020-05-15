@@ -54,3 +54,9 @@ I found that the network had too much **checker board** issue and was not traini
 ![DNN1](DNN2_m30.png)
 
 ![DNN1](DNN2_d30.png)
+
+### Doubling the Features?
+Tried same network as above with double the number of channels in each layer, but the outcome was not even close. My guess is that increasing the channels confused the system as the data being passed is lowres. You need more input data to work with more channels. It is just like in a Logistic Regression, adding more features is not always helpful.
+
+## Next Iteration - Deeper Network - No Atrous - Use Depthwise Separation
+
