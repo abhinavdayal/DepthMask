@@ -15,8 +15,8 @@ The above process took good 10-12 hours to learn, debug and get it right. For ex
 
 **NETWORK**: Started with following network
 
-![DNN1](DNN1.jpg)
+![DNN1](DNN1.png)
 
 ### Updated Network
 
-![DNN2](DNN2.jpg)
+![DNN2](DNN2.png)
