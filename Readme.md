@@ -112,6 +112,14 @@ Below, pink line indicates custom loss and blue indicates only SSIM. Both were t
 ![mixed](mixed_depth.png)
 ![mixed](mixed_idepth.png)
 
+## DICE Loss for Mask and SSIM for Depth
+
+DICE did not work so well for mask as shown below:
+
+![dice](dice_mask.png)
+
+## Focal loss for Depth
+
 
 ## Using Classification based losses with One Hot Encoding the output and input
 
