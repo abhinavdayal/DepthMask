@@ -97,8 +97,17 @@ class CustomLoss(nn.Module):
         return maskloss + depthloss
 ```
 
+Below, pink line indicates custom loss and blue indicates only SSIM. Both were trained for 20 epochs.
 
+![mixed](mixed_testloss.png)
 
+![mixed](mixed_trainloss.png)
+
+![mixed](mixed_mask.png)
+![mixed](mixed_imask.png)
+
+![mixed](mixed_depth.png)
+![mixed](mixed_idepth.png)
 
 ## Next Iteration - Deeper Network - No Atrous - Use Depthwise Separation
 
