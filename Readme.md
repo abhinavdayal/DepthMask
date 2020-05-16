@@ -84,6 +84,21 @@ The depth calculation was much better. The MASKS however were almost blank image
 
 Till now I represented the problem as a reconstruction (regression) problem and for those these are the best losses. So why not use what worked well for each.
 
+```
+class CustomLoss(nn.Module):
+    def __init__(self, maskloss, depthloss):
+        super(CustomLoss, self).__init__()
+        self.maskloss = maskloss
+        self.depthloss = depthloss
+
+    def forward(self, input, target):
+        maskloss = self.maskloss(input[:,:1,:,:], target[:,:1,:,:])
+        depthloss = self.depthloss(input[:,1:,:,:], target[:,1:,:,:])
+        return maskloss + depthloss
+```
+
+
+
 
 ## Next Iteration - Deeper Network - No Atrous - Use Depthwise Separation
 
