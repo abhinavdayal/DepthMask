@@ -139,5 +139,19 @@ After training on this for 10 epochs below is the loss stats
 ![masks](resdial_depth.png)
 ![masks](resdial_idepth.png)
 
+# Encoder Decoder Archtecture with Resnet 18
 
+The network is as shown below:
+
+![net](encoderdecoder.png)
+
+Outcomes with MSE loss for Mask and SSIM for Depth are shown below. There was no overfitting and test loss was consistently below train loss.
+
+![loss](encoderdecoder_loss.png)
+
+![depth](encoderdecoder_depth.png)
+![depth](encoderdecoder_idepth.png)
+
+![depth](encoderdecoder_mask.png)
+![depth](encoderdecoder_imask.png)
 
