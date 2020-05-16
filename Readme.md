@@ -113,6 +113,13 @@ Below, pink line indicates custom loss and blue indicates only SSIM. Both were t
 ![mixed](mixed_depth.png)
 ![mixed](mixed_idepth.png)
 
+### LOSS VALUES
+
+**Test loss at 10th EPOCH: .1637**
+
+**Test loss at 20th EPOCH: .1312**
+
+
 ## DICE Loss for Mask and SSIM for Depth
 
 DICE did not work so well for mask as shown below:
@@ -138,6 +145,10 @@ After training on this for 10 epochs below is the loss stats
 
 ![masks](resdial_depth.png)
 ![masks](resdial_idepth.png)
+
+### LOSS VALUES
+
+**Test loss at 10th EPOCH: .1637**
 
 # Encoder Decoder Archtecture with Resnet 18
 
