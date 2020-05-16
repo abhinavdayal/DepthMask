@@ -6,6 +6,7 @@ I applied the following strategy in attempt to solve the assignment
 2. **Use Tensorboard**. Learnt to use TensorBoard with Pytorch. Had to write a separate module in library to use tensorboard to output the Training outcomes instead of json files used earlier.
 3. **Separate Network from Loss criterion**. As earlier we already have create modular library, I separated the loss function from the Network definition, so loss functions can now be easily interchanged.
 4. **Augmentations**: Only used brighness and contrast adjustments. Can use RGB shift, addition of sopme noise etc. Rotations, flips, cutouts etc. I thought may not be necessay in this case. Cutouts certainly may not help uch as it is not for object detection. Can try combining 4 images into one with a random crop after initial experimentation.
+5. **LR Scheduler**: Initially used 10-20 epochs with One Cycle Policy using LR Finder.
 
 The above process took good 10-12 hours to learn, debug and get it right. For example Albumentations would return gray scale images transposed, a wierd inplace error for gradient calculation asking to change x += out to x = x + out and so on.
 
