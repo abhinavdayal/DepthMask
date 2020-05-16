@@ -72,6 +72,18 @@ This gave a lot better results after 35 epochs of training, beyond whch it did n
 
 ![DNN1](MSE_depth.png)
 
+## USING SSIM Loss with window = 11 and reduction as mean
+The depth calculation was much better. The MASKS however were almost blank images, so nothing to show. Notice how the checkerboard effect is gone and pixel shuffle is working way better with SSIM loss.
+
+### Depth Output
+![DEPTH](ssimdepth.jpg)
+### Depth Input
+![DEPTH](ssimdepthi.jpg)
+
+## Custom loss: using MSE for mask and SSIM for Depth
+
+Till now I represented the problem as a reconstruction (regression) problem and for those these are the best losses. So why not use what worked well for each.
+
 
 ## Next Iteration - Deeper Network - No Atrous - Use Depthwise Separation
 
