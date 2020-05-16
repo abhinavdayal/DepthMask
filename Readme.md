@@ -154,17 +154,17 @@ After training on this for 10 epochs below is the loss stats
 
 The network is as shown below:
 
-![net](encoderdecoder.png)
+![net](enoderdecoder.png)
 
 Outcomes with MSE loss for Mask and SSIM for Depth are shown below. There was no overfitting and test loss was consistently below train loss.
 
-![loss](encoderdecoder_loss.png)
+![loss](enoderdecoder_loss.png)
 
-![depth](encoderdecoder_depth.png)
-![depth](encoderdecoder_idepth.png)
+![depth](enoderdecoder_depth.png)
+![depth](enoderdecoder_idepth.png)
 
-![depth](encoderdecoder_mask.png)
-![depth](encoderdecoder_imask.png)
+![depth](enoderdecoder_mask.png)
+![depth](enoderdecoder_imask.png)
 
 ### LOSS VALUES
 
