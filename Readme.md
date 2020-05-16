@@ -119,11 +119,25 @@ DICE did not work so well for mask as shown below:
 
 ![dice](dice_mask.png)
 
-## Focal loss for Depth
+# Making residual blocks
+
+I now added skip connections
+
+![resdial](resdial_net.png)
+
+After training on this for 10 epochs below is the loss stats
+
+![loss](resdial_loss.png)
+
+### Mask Outputs
+
+![masks](resdial_mask.png)
+![masks](resdial_imask.png)
+
+### Depth Outputs
+
+![masks](resdial_depth.png)
+![masks](resdial_idepth.png)
 
 
-## Using Classification based losses with One Hot Encoding the output and input
-
-
-## Next Iteration - Deeper Network - No Atrous - Use Depthwise Separation
 
