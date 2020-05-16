@@ -109,5 +109,9 @@ Below, pink line indicates custom loss and blue indicates only SSIM. Both were t
 ![mixed](mixed_depth.png)
 ![mixed](mixed_idepth.png)
 
+
+## Using Classification based losses with One Hot Encoding the output and input
+
+
 ## Next Iteration - Deeper Network - No Atrous - Use Depthwise Separation
 
