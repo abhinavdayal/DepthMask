@@ -115,7 +115,7 @@ Below, pink line indicates custom loss and blue indicates only SSIM. Both were t
 
 ### LOSS VALUES
 
-**Test loss at 10th EPOCH: .1637**
+**Test loss at 10th EPOCH: .1549**
 
 **Test loss at 20th EPOCH: .1312**
 
@@ -148,7 +148,7 @@ After training on this for 10 epochs below is the loss stats
 
 ### LOSS VALUES
 
-**Test loss at 10th EPOCH: .1637**
+**Test loss at 10th EPOCH: .1355 (Without skip connections it was 0.1549)**
 
 # Encoder Decoder Archtecture with Resnet 18
 
@@ -166,3 +166,14 @@ Outcomes with MSE loss for Mask and SSIM for Depth are shown below. There was no
 ![depth](encoderdecoder_mask.png)
 ![depth](encoderdecoder_imask.png)
 
+### LOSS VALUES
+
+**Test loss at 10th EPOCH: .1131 (much better than 0.1355 value for previous network)**
+
+# Modeling problem as Classification problem
+
+Till now I have produces 2 channels as outputs, one for mask and other for depth. Taht is the network directly gives the images.
+
+Now we shall model out network to output probabilities for bg/fg and one of the 0-255 depths. That is the model will output 256 channels. First for foreground and 2nd to 256th representing depth intensities 1 to 255 (larger the nearer)
+
+Now we can use softmax, BCE loss, Dice loss etc. as well to see if it makes a difference.
