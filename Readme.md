@@ -180,9 +180,9 @@ To try any structural transform like rotate etc. I have to apply the same to mas
 Below are sample augmentations
 **NOTE**: I did not try cutouts etc. because this is a pixel level classification so every pixel is important. I model I can consider dropouts later if needed.
 
-![aug_fgbg](augfgbg.jpg)
-![aug_mask](augmask.jpg)
-![aug_depth](augdepth.jpg)
+![aug_fgbg](augfgbg.jpeg)
+![aug_mask](augmask.jpeg)
+![aug_depth](augdepth.jpeg)
 
 # Running on larger dataset
 
