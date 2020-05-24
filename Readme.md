@@ -41,7 +41,7 @@ I found that the network had too much **checker board** issue and was not traini
 
 ### Updated Network
 
-I rediced dilation. **Receptive Field** is 120. Switched to pixel shuffle.
+I reduced dilation. **Receptive Field** is 120. Switched to pixel shuffle. Network has close to **730K parameters**
 
 ![DNN2](DNN2.png)
 
@@ -150,6 +150,18 @@ After training on this for 10 epochs below is the loss stats
 
 **Test loss at 10th EPOCH: .1355 (Without skip connections it was 0.1549)**
 
+## Running on larger dataset
+
+Ran for 4 epochs on the full dataset with the previous model (non resnet18) and got some decent results.
+The loss reduced to 0.03x
+
+![losses](ep3losses.jpg)
+![maskso](ep3masko.jpg)
+![masksi](ep3maski.jpg)
+![depthso](ep3deptho.jpg)
+![depthsi](ep3depthi.jpg)
+
+
 # Encoder Decoder Archtecture with Resnet 18
 
 The network is as shown below:
@@ -184,15 +196,10 @@ Below are sample augmentations
 ![aug_mask](augmask.jpeg)
 ![aug_depth](augdepth.jpeg)
 
-# Running on larger dataset
+# Custom Encoder Decoder based on UNET concept
+Reading literature and with group discussion I found that there is a lot of work on UNET based architectures in this domain. So it was worth trying. Few things I adjusted based on lessons learnt in classes:
 
-Ran for 4 epochs on the full dataset with the previous model (non resnet18) and got some decent results.
-The loss reduced to 0.03x
-
-![losses](ep3losses.jpg)
-![maskso](ep3masko.jpg)
-![masksi](ep3maski.jpg)
-![depthso](ep3deptho.jpg)
-![depthsi](ep3depthi.jpg)
+1. Concatenation is better than addition. So I used concatenation instead of addition
+2. used 1x1 wherever I have to only change number of channels to concatenate to produce desired channels
 
 
