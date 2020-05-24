@@ -186,6 +186,13 @@ Below are sample augmentations
 
 # Running on larger dataset
 
-Ran for 3 epochs on the full dataset with the previous model (non resnet18) and got some decent results however not so satisfactory.
+Ran for 4 epochs on the full dataset with the previous model (non resnet18) and got some decent results.
+The loss reduced to 0.03x
+
+![losses](ep3losses.jpg)
+![maskso](ep3masko.jpg)
+![masksi](ep3maski.jpg)
+![depthso](ep3deptho.jpg)
+![depthsi](ep3depthi.jpg)
 
 
