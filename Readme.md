@@ -170,10 +170,22 @@ Outcomes with MSE loss for Mask and SSIM for Depth are shown below. There was no
 
 **Test loss at 10th EPOCH: .1131 (much better than 0.1355 value for previous network)**
 
-# Modeling problem as Classification problem
+# Augmentations
+Tried few augmentations:
+* blur
+* random brightnesscontrast
 
-Till now I have produces 2 channels as outputs, one for mask and other for depth. Taht is the network directly gives the images.
+To try any structural transform like rotate etc. I have to apply the same to mask and depth. So read about it and implemented that using Albumentations [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4datasets/fgbgdata.py). Passing two list of transforms to dataset generator that will apply same transform from set1 to all images including mask and depth but only apply the second set of transforms to fgbg image. For example with blur, etc. we dont want to blur the mask and depth.
 
-Now we shall model out network to output probabilities for bg/fg and one of the 0-255 depths. That is the model will output 256 channels. First for foreground and 2nd to 256th representing depth intensities 1 to 255 (larger the nearer)
+Below are sample augmentations
+**NOTE**: I did not try cutouts etc. because this is a pixel level classification so every pixel is important. I model I can consider dropouts later if needed.
 
-Now we can use softmax, BCE loss, Dice loss etc. as well to see if it makes a difference.
+![aug_fgbg](augfgbg.jpg)
+![aug_mask](augmask.jpg)
+![aug_depth](augdepth.jpg)
+
+# Running on larger dataset
+
+Ran for 3 epochs on the full dataset with the previous model (non resnet18) and got some decent results however not so satisfactory.
+
+
