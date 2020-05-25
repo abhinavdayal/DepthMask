@@ -28,7 +28,11 @@ The loss came down from 300K to 230K and there were no signs of overfitting. Tes
 
 ![DNN1](DNN2_dinput.png)
 
-### Outcomes
+### Results 
+
+![DNN1](DNN2_m30.png)
+
+![DNN1](DNN2_d30.png)
 
 #### TRaining Loss
 ![DNN1](DNN1_trainloss.png)
@@ -44,28 +48,21 @@ I reduced dilation. **Receptive Field** is 120. Switched to pixel shuffle. Netwo
 
 ![DNN2](DNN2.png)
 
-### Outcomes
-
 #### TRaining Loss
 ![DNN1](DNN2_trainloss.png)
 
 #### Test Loss
 ![DNN1](DNN2_testloss.png)
 
-#### Results 
-
-![DNN1](DNN2_m30.png)
-
-![DNN1](DNN2_d30.png)
-
 ### Doubling the Features?
 Tried same network as above with double the number of channels in each layer, but the outcome was not even close. My guess is that increasing the channels confused the system as the data being passed is lowres. You need more input data to work with more channels. It is just like in a Logistic Regression, adding more features is not always helpful.
 
-## Using MSELOSS with mean and not sum
+### Using MSELOSS with mean and not sum
 This gave a lot better results after 35 epochs of training, beyond whch it did not show promise to train further as shown below. At this point I want to try some more loss functions before trying to modify our network (encoder decoder architectures, Resnet type variants etc.) and/or the way we create the imges (e.g. thresholding, quantization, etc.)
 
 * [LINK to ipynb](https://github.com/abhinavdayal/DepthMask/blob/master/S15Assignment_attempt1.ipynb)
-* [LINK to network code](https://raw.githubusercontent.com/abhinavdayal/EVA4_LIBRARY/master/EVA4/eva4models/s15net.py)
+
+### Results
 
 ![DNN1](MSE_trainloss.png)
 
