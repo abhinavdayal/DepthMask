@@ -14,6 +14,7 @@ Given depth, foreground and foreground-background images. Train a DNN to detect 
 7. Initial experimentation I did was on 10% data with 80-20 train test split. Each experiment took few minutes to try and 20-30 minutes to validate and go futher. For two such promising networks I did full training for 10 epochs minimum on entire dataset. For more promising network, I tried further training after modifyng the loss and transformations on the larger sized images.
 8. As an input I **only passed fgbg image and not the background image**. As an output I planned to output 2 channels, one for the mask and other for the depth.
 9. Finally I tried the network on samle 8 images that are real images and not generated images to see how the network is performing. The results were awesone.
+10. Instead of using sigmoid or clamping at end to limit data between 0 and 1, I applied min-max scaling on the output channels. That worked well.
 
 **Time spent**: 25-30 hours total including coding, debugging, reading posts and papers, and watching the number crunching, documenting etc.
 
