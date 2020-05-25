@@ -154,11 +154,13 @@ After training on this for 10 epochs below is the loss stats
 
 **Test loss at 10th EPOCH: .1355 (Without skip connections it was 0.1549)**
 
-## Mixed Loss
+## Mixed Loss with L1 and MSSSIM
 Next based on [this paper](https://arxiv.org/pdf/1812.11941.pdf) I used MSSSIM loss along with L1. The losses code can be found [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4losses.py).
 
 Tried various combinations and finally used same figures as in this paper
-Loss = 0.16 x L1 Loss + 0.84 x MSSSIS Loss
+Loss = 0.16 x L1 Loss + 0.84 x MSSSIM Loss
+
+To improve speed changed MSSSIM window size to 21, enabled normalize for avoiding NAN and also clamped output between 0-1 after scaling by 2 to avoid large outputs.
 
 ## Running on larger dataset
 
