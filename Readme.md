@@ -248,6 +248,8 @@ Trained for 1 epoch with hardher factor favoring the mask and for another 2 epoc
 
 ## Final Results
 
+The results are astounding. The masks have slighe errors around boundaries and the depths are somewhat brighter and a tad less crisp. The difference images and actual inputs and outputs are shown below.
+
 #### Depth Outputs
 ![1](finaldepth-o.jpg)
 #### Depth Inputs
