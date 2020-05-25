@@ -11,7 +11,7 @@ Given depth, foreground and foreground-background images. Train a DNN to detect 
 4. **Augmentations**: Added ability in dataset generator to apply transforms to both fgbg and intended outcome images. Used Blur, grayscale, rotate, horizontal flip, brightness contrast transforms and did not do cutouts as this is pixel level classification.
 5. **LR Scheduler**: Used One Cycle Policy for initial training then cyclic LR with triangular 2 policy.
 6. **Network Architectures**: Since the output of out network must be of same size as input, there are several possibilities, parallel with atrous convolutions and deconvolutions, or U (encoder/decoder) architectures. In order to keep parameter count relatively low, I considered use of atrous convolutions and use of strides to increase receptive fields quicker. For decoder I tried both transpose convolutions and pixel shuffle. The UNet based architectures worked really well. I started very conservatively though in order to use as less parameters and to do faster trainings.
-7. Initial experimentation I did was on 10% data with 80-20 train test split. Each experiment took few minutes to try and 20-30 minutes to validate and go futher. For two such promising networks I did full training for 10 epochs etlieat on entire dataset. 
+7. Initial experimentation I did was on 10% data with 80-20 train test split. Each experiment took few minutes to try and 20-30 minutes to validate and go futher. For two such promising networks I did full training for 10 epochs etlieat on entire dataset. For more promising network, I tried further training after modifyng the loss and transformations.
 8. As an input I only passed fgbg image and not the background image. As an output I planned to output 2 channels, one for the mask and other for the depth.
 9. Finally I tried the network on samle 8 images that are real images and not generated images to see how the network is performing. The results were awesone.
 
@@ -206,7 +206,7 @@ Below are sample augmentations
 ![aug_depth](augdepth.jpeg)
 
 # Custom Encoder Decoder based on UNET concept
-Reading literature and with group discussion I found that there is a lot of work on UNET based architectures in this domain. So it was worth trying. Few things I adjusted based on lessons learnt in classes:
+Reading literature and with group discussion I found that there is a lot of work on UNET based architectures in this domain. So it was worth trying. Few things I adjusted based on lessons learnt in classes. The network code is [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4models/s15netED.py).
 
 1. So I used concatenation instead of addition
 2. used 1x1 wherever I have to only change number of channels to concatenate to produce desired channels
@@ -228,7 +228,7 @@ i.e. loss = factor x maskloss + depthloss
 
 The factor is adaptively calculated based on the ration of depth to mask loss clamped from 1 to for max pre configured factor. Look at customloss and mixedloss definitions [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4losses.py).
 
-Trained for 1 epoch with hardher factor favoring the mask and for another two epocs with milder max factor of 4.
+Trained for 1 epoch with hardher factor favoring the mask and for another two epocs with milder max factor of 4. But this time without any transformations. It saved 1/3rd of the time and network had already learnt to handle transformed images.
 
 ## Final Results
 
@@ -250,4 +250,9 @@ I tried it on 8 images that were not in our test/train dataset at all and some o
 
 ![7](unseen1.jpeg)
 
+## Conclusions
 
+1. Loss function has a great impact on performance. Just as in teaching if we give proper feedback to students they learn better, same is our model.
+2. We do not have to un necessarily increase the capacity of a network. More capacity doesn't necessarily mean better
+3. Pixel shuffle is good but that does not mean transpose convs nee dnot be used anywhere. In fact in the [final model]((https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4models/s15netED.py), I observe that I am doing pixel shuffle too early. After concatenating the previous layer and skip connection input, I should first do some convs and then do pixel shuffle. However I thought of that later so could not try.
+4. For grouped convs it may be good to use shuffleling like ShuffleNet. I did not use grouped convs but could have used in decoders.
