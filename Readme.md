@@ -266,7 +266,7 @@ Trained for 1 epoch with hardher factor favoring the mask and for another 2 epoc
 
 
 ## Trying on unseen data
-I tried it on 8 images that were not in our test/train dataset at all and some of them were very different from our dataset. Our group collected these images. Below are the results. It is working well but can be improved (See conclusions). For images that are very similar to those in our dataset it is performing really well. We dont have any spotted cow in our dataset, nor multiple calves of different color together. Adding more data of such types will make it generalize well.
+I tried it on 8 images that were not in our test/train dataset at all and some of them were very different from our dataset. Our group collected these images. Below are the results. It is working well but can be improved (See conclusions). For images that are very similar to those in our dataset it is performing really well. We dont have any spotted cow in our dataset, nor multiple calves of different color together. Adding more data of such types will make it generalize well. But good to see how multiple fg images like two bulls fighting and one cow with 3 calves is pretty accurate (other than the spots confusion on one of the fighting bull)
 
 ![7](unseenim.jpg)
 ![8](unseenm.jpg)
