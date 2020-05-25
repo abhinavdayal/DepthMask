@@ -146,6 +146,16 @@ After training on this for 10 epochs below is the loss stats
 
 **Test loss at 10th EPOCH: .1355 (Without skip connections it was 0.1549)**
 
+## Mixed Loss
+Next based on [this paper](https://arxiv.org/pdf/1812.11941.pdf) I used MSSSIM loss along with L1. The losses code can be found [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4losses.py).
+
+Tried various combinations and finally used same figures as in this paper
+Loss = 0.16 x L1 Loss + 0.84 x MSSSIS Loss
+
+The range of loss in mask and depth channels is different and as the model trains the differnce increases. So I considered a provision to dynamically scale the mask loss to make it comparable to train loss. 
+
+i.e. loss = factor x maskloss + depthloss
+
 ## Running on larger dataset
 
 Ran for 4 epochs on the full dataset with the previous model (non resnet18) and got some decent results.
