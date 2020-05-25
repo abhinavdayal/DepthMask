@@ -181,7 +181,7 @@ The network is as shown below. This had 11M parameters and each batch took 7-8 s
 
 ![net](enoderdecoder.png)
 
-Outcomes with MSE loss for Mask and SSIM for Depth are shown below. There was no overfitting and test loss was consistently below train loss.
+Outcomes with MSE loss for Mask and SSIM for Depth are shown below. There was no overfitting and test loss was consistently below train loss. The results are blurred and this is because I am not using readily available sharper features during encoding in Resnet layer blocks as skip connections to the decoder part. However since I do not want these many parameters, I plan to create my own network in a different way but inspired  by Resnet and Unet.
 
 ![loss](enoderdecoder_loss.png)
 
