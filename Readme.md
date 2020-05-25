@@ -233,13 +233,17 @@ Trained for 1 epoch with hardher factor favoring the mask and for another two ep
 ## Final Results
 
 #### Depth Outputs
-![1](ed2_deptho.jpg)
+![1](finaldepth-o.jpg)
 #### Depth Inputs
-![2](ed2_depthi.jpg)
+![2](finaldepth.jpg)
+#### Difference in depths
+![4d](depthdiff.jpg)
 #### Mask Outputs
-![3](ed2_masko.jpg)
+![3](finalmask-o.jpg)
 #### Mask Inputs
-![4](ed2_maski.jpg)
+![4](finalmask.jpg)
+#### Difference in masks
+![4d](maskdiff.jpg)
 #### Learning rate and losses
 ![5](msssim_full_lr.jpg)
 ![6](msssim_full_losses.jpg)
@@ -248,7 +252,9 @@ Trained for 1 epoch with hardher factor favoring the mask and for another two ep
 ## Trying on unseen data
 I tried it on 8 images that were not in our test/train dataset at all and some of them were very different from our dataset. Our group copllected these images. Below are the results. Nice to see that the images that were like the training images we had worked well, but images there were different like the spotted cow etc. didnt work so well. Although if I improve the model some things should improve.
 
-![7](unseen1.jpeg)
+![7](unseenim.jpeg)
+![8](unseenm.jpeg)
+![9](unseendm.jpeg)
 
 ## Conclusions
 
