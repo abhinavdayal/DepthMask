@@ -254,11 +254,11 @@ Trained for 1 epoch with hardher factor favoring the mask and for another two ep
 
 
 ## Trying on unseen data
-I tried it on 8 images that were not in our test/train dataset at all and some of them were very different from our dataset. Our group copllected these images. Below are the results. Nice to see that the images that were like the training images we had worked well, but images there were different like the spotted cow etc. didnt work so well. Although if I improve the model some things should improve.
+I tried it on 8 images that were not in our test/train dataset at all and some of them were very different from our dataset. Our group copllected these images. Below are the results. It is working well but can be improved (See conclusions).
 
-![7](unseenim.jpeg)
-![8](unseenm.jpeg)
-![9](unseendm.jpeg)
+![7](unseenim.jpg)
+![8](unseenm.jpg)
+![9](unseendm.jpg)
 
 ## Conclusions
 
