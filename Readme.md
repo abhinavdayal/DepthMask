@@ -61,7 +61,7 @@ I reduced dilation. **Receptive Field** is 80. Switched to pixel shuffle. Networ
 #### Test Loss
 ![DNN1](DNN2_testloss.png)
 
-### Doubling the Features?
+### Doubling the channles along the way?
 Tried same network as above with double the number of channels in each layer, but the outcome was not even close. My guess is that increasing the channels confused the system as the data being passed is lowres. You need more input data to work with more channels. It is just like in a Logistic Regression, adding more features is not always helpful.
 
 ### Using MSELOSS with mean and not sum
