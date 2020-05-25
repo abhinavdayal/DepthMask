@@ -233,6 +233,8 @@ Trained for 2 epochs on 160x60 sized data (5 hours)
 The range of loss in mask and depth channels is different and as the model trains the differnce increases. So I considered a provision to dynamically scale the mask loss to make it comparable to train loss. 
 
 i.e. loss = factor x maskloss + depthloss
+maskloss = 0.16 x L1Loss + 0.84 x MSSSIM Loss
+depthloss = 0.16 x L1Loss + 0.84 x MSSSIM Loss
 
 The factor is adaptively calculated based on the ration of depth to mask loss clamped from 1 to for max pre configured factor. Look at customloss and mixedloss definitions [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4losses.py).
 
