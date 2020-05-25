@@ -266,7 +266,7 @@ Trained for 1 epoch with hardher factor favoring the mask and for another 2 epoc
 
 
 ## Trying on unseen data
-I tried it on 8 images that were not in our test/train dataset at all and some of them were very different from our dataset. Our group collected these images. Below are the results. It is working well but can be improved (See conclusions).
+I tried it on 8 images that were not in our test/train dataset at all and some of them were very different from our dataset. Our group collected these images. Below are the results. It is working well but can be improved (See conclusions). For images that are very similar to those in our dataset it is performing really well. We dont have any spotted cow in our dataset, nor multiple calves of different color together. Adding more data of such types will make it generalize well.
 
 ![7](unseenim.jpg)
 ![8](unseenm.jpg)
@@ -274,7 +274,7 @@ I tried it on 8 images that were not in our test/train dataset at all and some o
 
 ## Conclusions
 
-The assignment task was successfully accomplised and results are promising. Below are some of the observations and future work.
+The assignment task was successfully accomplished and results are promising. Below are some of the observations and future work.
 
 1. Loss function has a great impact on performance. Just as in teaching if we give proper feedback to students they learn better, same is our model.
 2. We do not have to un necessarily increase the capacity of a network. More capacity doesn't necessarily mean better
