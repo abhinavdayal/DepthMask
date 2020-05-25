@@ -258,7 +258,7 @@ I tried it on 8 images that were not in our test/train dataset at all and some o
 
 ![7](unseenim.jpg)
 ![8](unseenm.jpg)
-![9](unseendm.jpg)
+![9](unseend.jpg)
 
 ## Conclusions
 
