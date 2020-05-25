@@ -170,6 +170,7 @@ The loss reduced to 0.03x
 ![depthso](ep3deptho.jpg)
 ![depthsi](ep3depthi.jpg)
 
+These images look good, however they only perform well on 80x80. I did not get time to tra on larger dataset as I wanted to try more architectures. But I also did not try because this one has inherent RF of 80 only. So had to increase the Receptive Fields.
 
 # Encoder Decoder Archtecture with Resnet 18
 
@@ -193,8 +194,11 @@ Outcomes with MSE loss for Mask and SSIM for Depth are shown below. There was no
 
 # Augmentations
 Tried few augmentations:
-* blur
-* random brightnesscontrast
+* blur - thought that the network must sharpen image to find sharp masks.
+* random brightnesscontrast - to help learn in various such conditions
+* rotate +/- 10 degrees only
+* horizontal flip
+* Tried grid distortion but initially it did not reduce loss that much so removed it and later did not try. Can be a promising think in this case.
 
 To try any structural transform like rotate etc. I have to apply the same to mask and depth. So read about it and implemented that using Albumentations [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4datasets/fgbgdata.py). Passing two list of transforms to dataset generator that will apply same transform from set1 to all images including mask and depth but only apply the second set of transforms to fgbg image. For example with blur, etc. we dont want to blur the mask and depth.
 
@@ -258,7 +262,12 @@ I tried it on 8 images that were not in our test/train dataset at all and some o
 
 ## Conclusions
 
+The assignment task was successfully accomplised and results are promising. Below are some of the observations and future work.
+
 1. Loss function has a great impact on performance. Just as in teaching if we give proper feedback to students they learn better, same is our model.
 2. We do not have to un necessarily increase the capacity of a network. More capacity doesn't necessarily mean better
-3. Pixel shuffle is good but that does not mean transpose convs nee dnot be used anywhere. In fact in the [final model]((https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4models/s15netED.py), I observe that I am doing pixel shuffle too early. After concatenating the previous layer and skip connection input, I should first do some convs and then do pixel shuffle. However I thought of that later so could not try.
-4. For grouped convs it may be good to use shuffleling like ShuffleNet. I did not use grouped convs but could have used in decoders.
+3. Pixel shuffle is good but that does not mean transpose convs need not be used anywhere. In fact in the [final model]((https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4models/s15netED.py), I observe that I am doing pixel shuffle too early. After concatenating the previous layer and skip connection input, I should first do some convs and then do pixel shuffle. However I thought of that later so could not try.
+4. For grouped convs it may be good to use shuffleling like ShuffleNet. I did not use grouped convs but could have used in decoders in order to save some parameters
+5. It may be better to have different decoder paths for mask and depth as both may have to learn different features from the encoded features. For sake of simplicity I did not do that. Even then this model worked well. 
+6. The receptive field of our final model ranges from 108 to 314. Ideally there should be 4 levels as that is srtandard so I should be adding one more encoder level if I want to train on larger images.
+7. There was no overfitting ever. The test loss was always lower than the train loss. In fact without augmentations also it was the case. Augmentations took extra time. Tried to use RAMDISK but got out of memory error so gave up on that.
