@@ -9,9 +9,12 @@ Given depth, foreground and foreground-background images. Train a DNN to detect 
 2. **Use Tensorboard**. User a run builder based on [this post](https://hackernoon.com/how-to-structure-a-pytorch-ml-project-with-google-colab-and-tensorboard-7ram3agi) but uses tensorboard magic in colab instead of ngrok method.
 3. **Separate Network from Loss criterion**. Separated the loss function from the Network definition in library, so loss functions can now be easily interchanged. Losses experimented with: L1, MSE, BCE, Dice, SSIM, MSSSIM and their combinations. [This paper](https://arxiv.org/pdf/1812.11941.pdf) gave a good discussion and I also found combination of L1 and [MSSSIM](https://github.com/jorge-pessoa/pytorch-msssim/blob/master/pytorch_msssim/__init__.py) to work best. 
 4. **Augmentations**: Added ability in dataset generator to apply transforms to both fgbg and intended outcome images. Used Blur, grayscale, rotate, horizontal flip, brightness contrast transforms and did not do cutouts as this is pixel level classification.
-5. **LR Scheduler**: Used One Cycle Policy for initial training then cuyclic LR with triangular 2 policy.
-6. **Network Architectures**: Since the output of out network must be of same size as input, there are several possibilities, parallel with atrous convolutions and deconvolutions, or U (encoder/decoder) architectures. In order to keep parameter cout relatively low, I considered use of atrous convolutions and use of strides to increase receptive fields quicker. For decoder I tried both transpose convolutions and pixel shuffle. The UNet based architectures worked really well. I started very conservatively though in order to use as less parameters and to do faster trainings.
+5. **LR Scheduler**: Used One Cycle Policy for initial training then cyclic LR with triangular 2 policy.
+6. **Network Architectures**: Since the output of out network must be of same size as input, there are several possibilities, parallel with atrous convolutions and deconvolutions, or U (encoder/decoder) architectures. In order to keep parameter count relatively low, I considered use of atrous convolutions and use of strides to increase receptive fields quicker. For decoder I tried both transpose convolutions and pixel shuffle. The UNet based architectures worked really well. I started very conservatively though in order to use as less parameters and to do faster trainings.
 7. As an input I only passed fgbg image and not the background image. As an output I planned to output 2 channels, one for the mask and other for the depth.
+8. Finally I tried the network on samle 8 images that are real images and not generated images to see how the network is performing. The results were awesone.
+
+**Time spent**: 25-30 hours total including coding, debugging, reading posts and papers, and watching the number crunching, documenting etc.
 
 ## First Experiment
 
@@ -37,7 +40,7 @@ The loss came down from 300K to 230K and there were no signs of overfitting. Tes
 
 ![DNN1](DNN2_d30.png)
 
-#### TRaining Loss
+#### Training Loss
 ![DNN1](DNN1_trainloss.png)
 
 ##### Test Loss
@@ -47,7 +50,7 @@ I found that the network had too much **checker board** issue and was not traini
 
 ### Updated Network
 
-I reduced dilation. **Receptive Field** is 120. Switched to pixel shuffle. Network has close to **730K parameters** and it can be found [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4models/s15net2.py).
+I reduced dilation. **Receptive Field** is 80. Switched to pixel shuffle. Network has close to **730K parameters** and it can be found [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4models/s15net2.py).
 
 ![DNN2](DNN2.png)
 
@@ -129,7 +132,7 @@ DICE did not work so well for mask as shown below:
 
 I now added skip connections
 
-![resdial](resdial_net.png)
+![residual](resdial_net.png)
 
 After training on this for 10 epochs below is the loss stats
 
@@ -154,10 +157,6 @@ Next based on [this paper](https://arxiv.org/pdf/1812.11941.pdf) I used MSSSIM l
 
 Tried various combinations and finally used same figures as in this paper
 Loss = 0.16 x L1 Loss + 0.84 x MSSSIS Loss
-
-The range of loss in mask and depth channels is different and as the model trains the differnce increases. So I considered a provision to dynamically scale the mask loss to make it comparable to train loss. 
-
-i.e. loss = factor x maskloss + depthloss
 
 ## Running on larger dataset
 
@@ -214,7 +213,23 @@ Reading literature and with group discussion I found that there is a lot of work
 
 ![arch](encdec.jpg)
 
-Trained for 10 epochs for 80x80 resolution with batch size of 192 that took 6 hours to complete. Then did 2 epochs on 160x160 size image that took another 4 hours to complete. The model had 2.3 million parameters overall. Results are below:
+Trained for 10 epochs for 80x80 resolution with batch size of 192 that took 6 hours to complete. Then did 2 epochs on 160x160 size image that took another 4 hours to complete. The model had 2.3 million parameters overall. 
+
+## Further refinements
+
+### Larger size image training
+Trained for 2 epochs on 160x60 sized data (5 hours)
+
+### refining the loss
+The range of loss in mask and depth channels is different and as the model trains the differnce increases. So I considered a provision to dynamically scale the mask loss to make it comparable to train loss. 
+
+i.e. loss = factor x maskloss + depthloss
+
+The factor is adaptively calculated based on the ration of depth to mask loss clamped from 1 to for max pre configured factor. Look at customloss and mixedloss definitions [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4losses.py).
+
+Trained for 1 epoch with hardher factor favoring the mask and for another two epocs with milder max factor of 4.
+
+## Final Results
 
 #### Depth Outputs
 ![1](ed2_deptho.jpg)
