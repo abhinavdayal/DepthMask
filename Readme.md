@@ -5,14 +5,15 @@ Given depth, foreground and foreground-background images. Train a DNN to detect 
 
 ## Approach
 
-1. **Create a [DataSet and DataLoader](https://pytorch.org/tutorials/beginner/data_loading_tutorial.html) for serving our data**. The data loaded allows for image resizing and train test split. My implementation is [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4datasets/fgbgdata.py).
+1. **Create a [DataSet and DataLoader](https://pytorch.org/tutorials/beginner/data_loading_tutorial.html) for serving our data**. The data loaded allows for image resizing and train test split. My implementation is [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4datasets/fgbgdata.py). 
 2. **Use Tensorboard**. User a run builder based on [this post](https://hackernoon.com/how-to-structure-a-pytorch-ml-project-with-google-colab-and-tensorboard-7ram3agi) but uses tensorboard magic in colab instead of ngrok method.
 3. **Separate Network from Loss criterion**. Separated the loss function from the Network definition in library, so loss functions can now be easily interchanged. Losses experimented with: L1, MSE, BCE, Dice, SSIM, MSSSIM and their combinations. [This paper](https://arxiv.org/pdf/1812.11941.pdf) gave a good discussion and I also found combination of L1 and [MSSSIM](https://github.com/jorge-pessoa/pytorch-msssim/blob/master/pytorch_msssim/__init__.py) to work best. 
 4. **Augmentations**: Added ability in dataset generator to apply transforms to both fgbg and intended outcome images. Used Blur, grayscale, rotate, horizontal flip, brightness contrast transforms and did not do cutouts as this is pixel level classification.
 5. **LR Scheduler**: Used One Cycle Policy for initial training then cyclic LR with triangular 2 policy.
 6. **Network Architectures**: Since the output of out network must be of same size as input, there are several possibilities, parallel with atrous convolutions and deconvolutions, or U (encoder/decoder) architectures. In order to keep parameter count relatively low, I considered use of atrous convolutions and use of strides to increase receptive fields quicker. For decoder I tried both transpose convolutions and pixel shuffle. The UNet based architectures worked really well. I started very conservatively though in order to use as less parameters and to do faster trainings.
-7. As an input I only passed fgbg image and not the background image. As an output I planned to output 2 channels, one for the mask and other for the depth.
-8. Finally I tried the network on samle 8 images that are real images and not generated images to see how the network is performing. The results were awesone.
+7. Initial experimentation I did was on 10% data with 80-20 train test split. Each experiment took few minutes to try and 20-30 minutes to validate and go futher. For two such promising networks I did full training for 10 epochs etlieat on entire dataset. 
+8. As an input I only passed fgbg image and not the background image. As an output I planned to output 2 channels, one for the mask and other for the depth.
+9. Finally I tried the network on samle 8 images that are real images and not generated images to see how the network is performing. The results were awesone.
 
 **Time spent**: 25-30 hours total including coding, debugging, reading posts and papers, and watching the number crunching, documenting etc.
 
@@ -172,7 +173,7 @@ The loss reduced to 0.03x
 
 # Encoder Decoder Archtecture with Resnet 18
 
-The network is as shown below:
+The network is as shown below. This had 11M parameters and each batch took 7-8 seconds to train so very very slow. Only trioed on mini data (10%) with 80-20 train test split.
 
 ![net](enoderdecoder.png)
 
