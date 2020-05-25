@@ -2,20 +2,18 @@
 
 I applied the following strategy in attempt to solve the assignment
 
-1. **Create a DataSet and DataLoader for our new dataset**. Since we have to experiment with small sizes initially, I implemented data loader to allow for an intended image size as output and also customize the fraction of dataset to take and also the train test split.
-2. **Use Tensorboard**. Learnt to use TensorBoard with Pytorch. Had to write a separate module in library to use tensorboard to output the Training outcomes instead of json files used earlier.
-3. **Separate Network from Loss criterion**. As earlier we already have create modular library, I separated the loss function from the Network definition, so loss functions can now be easily interchanged.
-4. **Augmentations**: Only used brighness and contrast adjustments. Can use RGB shift, addition of sopme noise etc. Rotations, flips, cutouts etc. I thought may not be necessay in this case. Cutouts certainly may not help uch as it is not for object detection. Can try combining 4 images into one with a random crop after initial experimentation.
-5. **LR Scheduler**: Initially used 10-20 epochs with One Cycle Policy using LR Finder.
-
-The above process took good 10-12 hours to learn, debug and get it right. For example Albumentations would return gray scale images transposed, a wierd inplace error for gradient calculation asking to change x += out to x = x + out and so on.
-
+1. **Create a DataSet and DataLoader for our new dataset**. The data loaded allows for image resizing and train test split.
+2. **Use Tensorboard**. User a run builder based on [this post](https://hackernoon.com/how-to-structure-a-pytorch-ml-project-with-google-colab-and-tensorboard-7ram3agi) but uses tensorboard magic in colab instead of ngrok method.
+3. **Separate Network from Loss criterion**. Separated the loss function from the Network definition in library, so loss functions can now be easily interchanged. Losses experimented with: L1, MSE, BCE, Dice, SSIM, MSSSIM and their combinations. [This paper] gave a good discussion and I also found combination of L1 and [MSSSIM](https://github.com/jorge-pessoa/pytorch-msssim/blob/master/pytorch_msssim/__init__.py) to work best. 
+4. **Augmentations**: Added ability in dataset generator to apply transforms to both fgbg and intended outcome images. Used Blur, grayscale, rotate, horizontal flip, brightness contrast transforms and did not do cutouts as this is pixel level classification.
+5. **LR Scheduler**: Used One Cycle Policy for initial training then cuyclic LR with triangular 2 policy.
+6. **Network Architectures**: Since the output of out network must be of same size as input, there are two possibilities, parallel, or U (encoder/decoder) architectures. In order to keep parameter cout relatively low, I considered use of atrous convolutions and use of strides to increase receptive fields quicker. For decoder I tried both transpose convolutions and pixel shuffle. The UNet based architectures worked really well. I started very conservatively though in order to use as less parameters and to do faster trainings.
 
 ## First Experiment
 
 **GOAL**: Intent was to keep the network really small and see what is working and what is not. At the same time challenge was to get enough receptive field and keep the output having same dimension as the input.
 
-**NETWORK**: Started with following network. It has around **230K parameters**. We trained on **32K images** and tested on **8K images** per epoch with a **batch size of 256**. It took around **3 minutes per epoch**. We used **L1 Loss with reduction of "sum"** instead of mean to avoid a division. **Learning rate was 0.0002** which I found with a simple LR finder over 3 epochs. **Receptive Field** is 120.
+**NETWORK**: Started with [this](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4models/s15net.py) network. It has around **230K parameters**. We trained on **32K images** and tested on **8K images** per epoch with a **batch size of 256**. It took around **3 minutes per epoch**. We used **L1 Loss with reduction of "sum"** instead of mean to avoid a division. **Learning rate was 0.0002** which I found with a simple LR finder over 3 epochs. **Receptive Field** is 120.
 
 The loss came down from 300K to 230K and there were no signs of overfitting. Test loss was similar to train loss.
 
@@ -41,7 +39,7 @@ I found that the network had too much **checker board** issue and was not traini
 
 ### Updated Network
 
-I reduced dilation. **Receptive Field** is 120. Switched to pixel shuffle. Network has close to **730K parameters**
+I reduced dilation. **Receptive Field** is 120. Switched to pixel shuffle. Network has close to **730K parameters** and it can be found [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4models/s15net2.py).
 
 ![DNN2](DNN2.png)
 
