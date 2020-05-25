@@ -199,7 +199,30 @@ Below are sample augmentations
 # Custom Encoder Decoder based on UNET concept
 Reading literature and with group discussion I found that there is a lot of work on UNET based architectures in this domain. So it was worth trying. Few things I adjusted based on lessons learnt in classes:
 
-1. Concatenation is better than addition. So I used concatenation instead of addition
+1. So I used concatenation instead of addition
 2. used 1x1 wherever I have to only change number of channels to concatenate to produce desired channels
+3. Retained pixel shuffle for pixel shuffle however, later I realize that transpose conv may be better because I am not putting that much additional convs on the skip connections. Or I should have used additions instead. But good learning!
+
+[!arch](encdec.jpg)
+
+Trained for 10 epochs for 80x80 resolution with batch size of 192 that took 6 hours to complete. Then did 2 epochs on 160x160 size image that took another 4 hours to complete. Results are below:
+
+#### Depth Outputs
+[!1](ed2_deptho.jpg)
+#### Depth Inputs
+[!2](ed2_depthi.jpg)
+#### Mask Outputs
+[!3](ed2_masko.jpg)
+#### Mask Inputs
+[!4](ed2_maski.jpg)
+#### Learning rate and losses
+[!5](msssim_full_lr.jpg)
+[!6](msssim_full_losses.jpg)
+
+
+## Trying on unseen data
+I tried it on 8 images that were not in our test/train dataset at all and some of them were very different from our dataset. Our group copllected these images. Below are the results. Nice to see that the images that were like the training images we had worked well, but images there were different like the spotted cow etc. didnt work so well. Although if I improve the model some things should improve.
+
+[!7](unseen1.jpeg)
 
 
