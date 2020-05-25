@@ -218,6 +218,7 @@ Reading literature and with group discussion I found that there is a lot of work
 
 ![arch](encdec.jpg)
 
+* [link to ipynb](https://github.com/abhinavdayal/DepthMask/blob/master/S15Assignment_4_MSSSIM.ipynb)
 Trained for 10 epochs for 80x80 resolution with batch size of 192 that took 6 hours to complete. Then did 2 epochs on 160x160 size image that took another 4 hours to complete. The model had 2.3 million parameters overall. 
 
 ## Further refinements
@@ -232,7 +233,13 @@ i.e. loss = factor x maskloss + depthloss
 
 The factor is adaptively calculated based on the ration of depth to mask loss clamped from 1 to for max pre configured factor. Look at customloss and mixedloss definitions [here](https://github.com/abhinavdayal/EVA4_LIBRARY/blob/master/EVA4/eva4losses.py).
 
-Trained for 1 epoch with hardher factor favoring the mask and for another two epocs with milder max factor of 4. But this time without any transformations. It saved 1/3rd of the time and network had already learnt to handle transformed images.
+Trained for 1 epoch with hardher factor favoring the mask and for another 2 epocs with milder max factor of 4 (had to kill in middle in order to save time). But this time without any transformations. It saved 1/3rd of the time and network had already learnt to handle transformed images.
+
+**Training times**
+* 80x80 image 192 batch size, 1.42 it/sec
+* 160x160 image with augmentations 80 batch size, 2.42 s/it
+* 160x160 without augmentations 80 batch size, 1.81 s/it
+* Trained for total 15 epochs.
 
 ## Final Results
 
