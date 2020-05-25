@@ -205,7 +205,7 @@ Reading literature and with group discussion I found that there is a lot of work
 
 ![arch](encdec.jpg)
 
-Trained for 10 epochs for 80x80 resolution with batch size of 192 that took 6 hours to complete. Then did 2 epochs on 160x160 size image that took another 4 hours to complete. Results are below:
+Trained for 10 epochs for 80x80 resolution with batch size of 192 that took 6 hours to complete. Then did 2 epochs on 160x160 size image that took another 4 hours to complete. The model had 2.3 million parameters overall. Results are below:
 
 #### Depth Outputs
 ![1](ed2_deptho.jpg)
