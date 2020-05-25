@@ -8,6 +8,7 @@ I applied the following strategy in attempt to solve the assignment
 4. **Augmentations**: Added ability in dataset generator to apply transforms to both fgbg and intended outcome images. Used Blur, grayscale, rotate, horizontal flip, brightness contrast transforms and did not do cutouts as this is pixel level classification.
 5. **LR Scheduler**: Used One Cycle Policy for initial training then cuyclic LR with triangular 2 policy.
 6. **Network Architectures**: Since the output of out network must be of same size as input, there are two possibilities, parallel, or U (encoder/decoder) architectures. In order to keep parameter cout relatively low, I considered use of atrous convolutions and use of strides to increase receptive fields quicker. For decoder I tried both transpose convolutions and pixel shuffle. The UNet based architectures worked really well. I started very conservatively though in order to use as less parameters and to do faster trainings.
+7. As an input I only passed fgbg image and not the background image. As an output I planned to output 2 channels, one ofr mask and one for depth.
 
 ## First Experiment
 
